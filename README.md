@@ -29,7 +29,7 @@ Através de uma interface amigável e funcionalidades robustas, os usuários pod
 ## Documentação 📖
 - [Microservice para gerencias filas](https://github.com/raphaelarena/ProcessingMicroservice/tree/BankProcessingMicroservice)
 - [Documentação Funcional do projeto](https://github.com/Palomapsj/BankFiap/blob/main/Especifica%C3%A7%C3%A3o_funcional_Bank.docx)
-- [Vídeo demonstrando o projeto](https://youtu.be/-b77WFcbVKE)
+- [Vídeo demonstrando o projeto](https://www.youtube.com/watch?v=Iq1n4ZA8wdc)
 
 ## Instalação 🔁
 1. Clone o repositório:
