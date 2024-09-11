@@ -42,7 +42,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddSingleton<IUser, UserRepository>();
 builder.Services.AddSingleton<IAsset, AssetRepository>();
 builder.Services.AddSingleton<IDividendInterest, DividendInterestRepository>();
-builder.Services.AddSingleton<IPortifolio, PortifolioRepository>();
+builder.Services.AddSingleton<IPortfolio, PortfolioRepository>();
 builder.Services.AddSingleton<IPriceHistory, PriceHistoryRepository>();
 builder.Services.AddSingleton<ITransaction, TransactionRepository>();
 builder.Services.AddSingleton<IMarketValue, MarketValueRepository>();

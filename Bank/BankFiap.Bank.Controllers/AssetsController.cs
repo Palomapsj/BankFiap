@@ -10,8 +10,8 @@ namespace Bank.BankFiap.Bank.Controllers
     public class AssetsController : ControllerBase
     {
         private IAsset _assetRepository;
-        private readonly ILogger<PortfoliosController> _logger;
-        public AssetsController(IAsset assetRepository, ILogger<PortfoliosController> logger)
+        private readonly ILogger<AssetsController> _logger;
+        public AssetsController(IAsset assetRepository, ILogger<AssetsController> logger)
         {
             _assetRepository = assetRepository;
             _logger = logger;
