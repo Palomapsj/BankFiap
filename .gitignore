@@ -55,3 +55,16 @@
 /.vs/ProjectEvaluation/bankfiap.projects.v7.bin
 /.vs/VSWorkspaceState.json
 /Bank/bin/Debug/net7.0/RabbitMQ.Client.dll
+/BankTestProject/bin/Debug/net7.0/CoverletSourceRootsMapping
+/BankTestProject/obj/Debug/net7.0/.NETCoreApp,Version=v7.0.AssemblyAttributes.cs
+/BankTestProject/obj/Debug/net7.0/BankTestProject.AssemblyInfo.cs
+/BankTestProject/obj/Debug/net7.0/BankTestProject.AssemblyInfoInputs.cache
+/BankTestProject/obj/Debug/net7.0/BankTestProject.assets.cache
+/BankTestProject/obj/Debug/net7.0/BankTestProject.csproj.AssemblyReference.cache
+/BankTestProject/obj/Debug/net7.0/BankTestProject.GeneratedMSBuildEditorConfig.editorconfig
+/BankTestProject/obj/Debug/net7.0/BankTestProject.GlobalUsings.g.cs
+/BankTestProject/obj/BankTestProject.csproj.nuget.dgspec.json
+/BankTestProject/obj/BankTestProject.csproj.nuget.g.props
+/BankTestProject/obj/BankTestProject.csproj.nuget.g.targets
+/BankTestProject/obj/project.assets.json
+/BankTestProject/obj/project.nuget.cache

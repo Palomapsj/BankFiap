@@ -49,6 +49,23 @@ namespace Bank.BankFiap.Bank.Controllers
             }
         }
 
+        [HttpGet("get-assets")]
+        public IActionResult GetAssets()
+        {
+            try
+            {
+                var asset = _assetRepository.GetAll();
+                if (asset == null)
+                    return NotFound("Ativos não encontrados");
+                return Ok(asset);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao tentar obter ativos");
+                return StatusCode(500, "Erro interno ao tentar obter ativos");
+            }
+        }
+
         [HttpGet("get-assets-by-type/{type}")]
         public IActionResult GetAssetsByType(int type)
         {
