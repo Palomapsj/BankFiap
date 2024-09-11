@@ -54,3 +54,4 @@
 /.vs/ProjectEvaluation/bankfiap.metadata.v7.bin
 /.vs/ProjectEvaluation/bankfiap.projects.v7.bin
 /.vs/VSWorkspaceState.json
+/Bank/bin/Debug/net7.0/RabbitMQ.Client.dll
