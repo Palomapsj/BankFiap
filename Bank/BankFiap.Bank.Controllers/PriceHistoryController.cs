@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Bank.BankFiap.Bank.Repository;
 using Bank.BankFiap.Bank.Interface;
-using Microsoft.AspNetCore.Authorization;
-using Bank.BankFiap.Bank.DTO;
 using Bank.BankFiap.Bank.Entity;
 
 namespace Bank.BankFiap.Bank.Controllers
@@ -16,5 +13,36 @@ namespace Bank.BankFiap.Bank.Controllers
             _priceHistoryRepository = priceHistoryRepository;
             _logger = logger;
         }
+
+        [HttpPost("add-price-history")]
+        public IActionResult Add([FromBody] PriceHistory priceHistory)
+        {
+            try
+            {
+                _priceHistoryRepository.Add(priceHistory);
+                return Ok("Histórico de preços adicionado com sucesso");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao tentar adicionar histórico de preços");
+                return StatusCode(500, "Erro interno ao tentar adicionar histórico de preços");
+            }
+        }
+
+        [HttpGet("get-price-history-by-asset/{assetId}")]
+        public IActionResult GetPriceHistoryByAssetId(int assetId)
+        {
+            try
+            {
+                var priceHistories = _priceHistoryRepository.GetPriceHistoryByAssetId(assetId);
+                return Ok(priceHistories);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao tentar obter histórico de preços por ativo");
+                return StatusCode(500, "Erro interno ao tentar obter histórico de preços por ativo");
+            }
+        }
+
     }
 }

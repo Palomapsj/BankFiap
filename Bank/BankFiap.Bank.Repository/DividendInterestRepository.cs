@@ -49,6 +49,13 @@ namespace Bank.BankFiap.Bank.Repository
             return dbConnection.Query<DividendInterest>(query).ToList();
         }
 
+        public IList<DividendInterest> GetDividendsInterestsByPortfolioId(int portfolioId)
+        {
+            using var dbConnection = new SqlConnection(ConnectionString);
+            var query = "SELECT * FROM DividendsInterests where PortfolioId = @portfolioId";
+            return dbConnection.Query<DividendInterest>(query, new { PortfolioId = portfolioId }).ToList();
+        }
+
         private void PublishToQueue(string queueName, DividendInterest entidade)
         {
             using (var connection = _factory.CreateConnection())

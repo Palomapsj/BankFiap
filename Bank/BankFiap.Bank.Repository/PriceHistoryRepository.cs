@@ -49,6 +49,13 @@ namespace Bank.BankFiap.Bank.Repository
             return dbConnection.Query<PriceHistory>(query).ToList();
         }
 
+        public IList<PriceHistory> GetPriceHistoryByAssetId(int assetId)
+        {
+            using var dbConnection = new SqlConnection(ConnectionString);
+            var query = "SELECT * FROM PriceHistories where AssetId = @assetId";
+            return dbConnection.Query<PriceHistory>(query, new { AssetId = assetId }).ToList();
+        }
+
         private void PublishToQueue(string queueName, PriceHistory entidade)
         {
             using (var connection = _factory.CreateConnection())

@@ -49,6 +49,13 @@ namespace Bank.BankFiap.Bank.Repository
             return dbConnection.Query<MarketValue>(query).ToList();
         }
 
+        public IList<MarketValue> GetMarketValueByAssetId(int assetId)
+        {
+            using var dbConnection = new SqlConnection(ConnectionString);
+            var query = "SELECT * FROM MarketValues where AssetId = @assetId";
+            return dbConnection.Query<MarketValue>(query, new { AssetId = assetId }).ToList();
+        }
+
         private void PublishToQueue(string queueName, MarketValue entidade)
         {
             using (var connection = _factory.CreateConnection())

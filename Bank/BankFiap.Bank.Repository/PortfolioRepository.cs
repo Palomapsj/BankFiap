@@ -49,6 +49,13 @@ namespace Bank.BankFiap.Bank.Repository
             return dbConnection.Query<Portfolio>(query).ToList();
         }
 
+        IList<Portfolio> IPortfolio.GetPortfoliosByUserId(int userId)
+        {
+            using var dbConnection = new SqlConnection(ConnectionString);
+            var query = "SELECT * FROM Portfolios where UserId = @userId";
+            return dbConnection.Query<Portfolio>(query, new { UserId = userId }).ToList();
+        }
+
         private void PublishToQueue(string queueName, Portfolio entidade)
         {
             using (var connection = _factory.CreateConnection())

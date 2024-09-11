@@ -49,6 +49,14 @@ namespace Bank.BankFiap.Bank.Repository
             return dbConnection.Query<User>(query).ToList();
         }
 
+        public User GetUserByEmail(string email)
+        {
+            using var dbConnection = new SqlConnection(ConnectionString);
+            var query = "SELECT * FROM Users where Email = @email";
+
+            return dbConnection.QueryFirstOrDefault<User>(query, new { email });
+        }
+
         public User GetUserByNameAndPassword(string userName, string password)
         {
             using var dbConnection = new SqlConnection(ConnectionString);

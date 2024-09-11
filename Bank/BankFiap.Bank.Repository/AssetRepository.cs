@@ -51,6 +51,13 @@ namespace Bank.BankFiap.Bank.Repository
             return dbConnection.Query<Asset>(query).ToList();
         }
 
+        public IList<Asset> GetAssetsByType(int type)
+        {
+            using var dbConnection = new SqlConnection(ConnectionString);
+            var query = "SELECT * FROM Assets where Type = @type";
+            return dbConnection.Query<Asset>(query, new { Type = type }).ToList();
+        }
+
         private void PublishToQueue(string queueName, Asset entidade)
         {
             using (var connection = _factory.CreateConnection())

@@ -16,5 +16,36 @@ namespace Bank.BankFiap.Bank.Controllers
             _transactionRepository = transactionRepository;
             _logger = logger;
         }
+
+        [HttpPost("add-transaction")]
+        public IActionResult Add([FromBody] Transaction transaction)
+        {
+            try
+            {
+                _transactionRepository.Add(transaction);
+                return Ok("Transação adicionada com sucesso");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao tentar adicionar transação");
+                return StatusCode(500, "Erro interno ao tentar adicionar transação");
+            }
+        }
+
+        [HttpGet("get-transactions-by-portfolio/{portfolioId}")]
+        public IActionResult GetTransactionsByPortfolioId(int portfolioId)
+        {
+            try
+            {
+                var transactions = _transactionRepository.GetTransactionsByPortfolioId(portfolioId);
+                return Ok(transactions);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao tentar obter transações do portfólio");
+                return StatusCode(500, "Erro interno ao tentar obter transações do portfólio");
+            }
+        }
+
     }
 }

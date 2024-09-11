@@ -1,4 +1,5 @@
-﻿using Bank.BankFiap.Bank.Interface;
+﻿using Bank.BankFiap.Bank.Entity;
+using Bank.BankFiap.Bank.Interface;
 using Dapper;
 using RabbitMQ.Client;
 using System.Data.SqlClient;
@@ -47,6 +48,13 @@ namespace Bank.BankFiap.Bank.Repository
             using var dbConnection = new SqlConnection(ConnectionString);
             var query = "SELECT * FROM Transactions";
             return dbConnection.Query<Transaction>(query).ToList();
+        }
+
+        public IList<Transaction> GetTransactionsByPortfolioId(int portfolioId)
+        {
+            using var dbConnection = new SqlConnection(ConnectionString);
+            var query = "SELECT * FROM Transactions where PortfolioId = @portfolioId";
+            return dbConnection.Query<Transaction>(query, new { Type = portfolioId }).ToList();
         }
 
         private void PublishToQueue(string queueName, Transaction entidade)

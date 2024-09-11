@@ -17,58 +17,85 @@ namespace Bank.BankFiap.Bank.Controllers
             _logger = logger;
         }
 
-
-        [HttpPost("Register-User")]
-        public IActionResult AddUser(UserDTO userDTO)
+        [HttpPost("add-user")]
+        public IActionResult Add([FromBody] User user)
         {
             try
             {
-                _logger.LogInformation("Tentando cadastrar usuario");
-                _usuarioRepository.Add(new User(userDTO));
-                _logger.LogInformation("Usuario cadastrado com sucesso");
-
-                return Ok("Usuario cadastrado com sucesso");
-
+                _usuarioRepository.Add(user);
+                return Ok("Usuário adicionado com sucesso");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao tentar cadastrar usuário no banco de dados");
-                return StatusCode(500, "Erro interno ao tentar cadastrar usuário");
+                _logger.LogError(ex, "Erro ao tentar adicionar usuário");
+                return StatusCode(500, "Erro interno ao tentar adicionar usuário");
             }
         }
 
-            [HttpGet("Get-user-byId/{id}")]
-            public IActionResult GetUserById(int id)
+        [HttpGet("get-user/{id}")]
+        public IActionResult GetById(int id)
+        {
+            try
             {
-                try
-                {
-                    _logger.LogInformation("Buscando usuario");
-                    return Ok(_usuarioRepository.GetById(id));
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Erro ao tentar obter usuário no banco de dados");
-                    return StatusCode(500, "Erro interno ao tentar obter usuário");
-                }
+                var user = _usuarioRepository.GetById(id);
+                if (user == null)
+                    return NotFound("Usuário não encontrado");
+                return Ok(user);
             }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao tentar obter usuário");
+                return StatusCode(500, "Erro interno ao tentar obter usuário");
+            }
+        }
 
-             [HttpPost("UpdateUser")]
-             public IActionResult UpdateUser(UserDTO userDTO)
-             {
-                 try
-                 {
-                     _logger.LogInformation("Tentando cadastrar usuario");
-                     _usuarioRepository.Update(new User(userDTO));
-                     _logger.LogInformation("Usuario cadastrado com sucesso");
+        [HttpGet("get-user-by-email/{email}")]
+        public IActionResult GetUserByEmail(string email)
+        {
+            try
+            {
+                var user = _usuarioRepository.GetUserByEmail(email);
+                if (user == null)
+                    return NotFound("Usuário não encontrado");
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao tentar obter usuário por email");
+                return StatusCode(500, "Erro interno ao tentar obter usuário por email");
+            }
+        }
 
-                     return Ok("Usuario cadastrado com sucesso");
-                 }
-                 catch (Exception ex)
-                 {
-                     _logger.LogError(ex, "Erro ao tentar cadastrar usuário no banco de dados");
-                     return StatusCode(500, "Erro interno ao tentar cadastrar usuário");
-                 }
-             }
+        [HttpPut("update-user")]
+        public IActionResult Update([FromBody] User user)
+        {
+            try
+            {
+                _usuarioRepository.Update(user);
+                return Ok("Usuário atualizado com sucesso");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao tentar atualizar usuário");
+                return StatusCode(500, "Erro interno ao tentar atualizar usuário");
+            }
+        }
+
+        [HttpDelete("delete-user/{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                _usuarioRepository.Delete(id);
+                return Ok("Usuário excluído com sucesso");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao tentar excluir usuário");
+                return StatusCode(500, "Erro interno ao tentar excluir usuário");
+            }
+        }
+
     }
-    }
+}
 

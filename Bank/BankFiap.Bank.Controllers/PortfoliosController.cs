@@ -17,55 +17,82 @@ namespace Bank.BankFiap.Bank.Controllers
             _logger = logger;
         }
 
-        [HttpPost("Register-Portifolio")]
-        public IActionResult AddPortifolio(PortfolioDTO portifolioDTO)
+        [HttpPost("add-portfolio")]
+        public IActionResult Add([FromBody] Portfolio portfolio)
         {
             try
             {
-                _logger.LogInformation("Tentando cadastrar usuario");
-                _portfolioRepository.Add(new Portfolio(portifolioDTO));
-                _logger.LogInformation("Usuario cadastrado com sucesso");
-
-                return Ok("Usuario cadastrado com sucesso");
+                _portfolioRepository.Add(portfolio);
+                return Ok("Portfólio adicionado com sucesso");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao tentar cadastrar usuário no banco de dados");
-                return StatusCode(500, "Erro interno ao tentar cadastrar usuário");
+                _logger.LogError(ex, "Erro ao tentar adicionar portfólio");
+                return StatusCode(500, "Erro interno ao tentar adicionar portfólio");
             }
         }
 
-        [HttpGet("Get-Portifolio-byId/{id}")]
-        public IActionResult GetPortifolioById(int id)
+        [HttpGet("get-portfolio/{id}")]
+        public IActionResult GetById(int id)
         {
             try
             {
-                _logger.LogInformation("Buscando portfolios");
-                return Ok(_portfolioRepository.GetById(id));
+                var portfolio = _portfolioRepository.GetById(id);
+                if (portfolio == null)
+                    return NotFound("Portfólio não encontrado");
+                return Ok(portfolio);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao tentar obter portfolios no banco de dados");
-                return StatusCode(500, "Erro interno ao tentar obter portfolios");
+                _logger.LogError(ex, "Erro ao tentar obter portfólio");
+                return StatusCode(500, "Erro interno ao tentar obter portfólio");
             }
         }
 
-        [HttpPost("UpdatePortfolios")]
-        public IActionResult UpdatePortfolio(PortfolioDTO userDTO)
+        [HttpGet("get-portfolios-by-user/{userId}")]
+        public IActionResult GetPortfoliosByUserId(int userId)
         {
             try
             {
-                _logger.LogInformation("Tentando cadastrar um portfolios");
-                _portfolioRepository.Update(new Portfolio(userDTO));
-                _logger.LogInformation("Usuario cadastrado com sucesso");
-
-                return Ok("Portfolios cadastrado com sucesso");
+                var portfolios = _portfolioRepository.GetPortfoliosByUserId(userId);
+                return Ok(portfolios);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao tentar cadastrar portfolios no banco de dados");
-                return StatusCode(500, "Erro interno ao tentar cadastrar portfolios");
+                _logger.LogError(ex, "Erro ao tentar obter portfólios do usuário");
+                return StatusCode(500, "Erro interno ao tentar obter portfólios do usuário");
             }
         }
+
+        [HttpPut("update-portfolio")]
+        public IActionResult Update([FromBody] Portfolio portfolio)
+        {
+            try
+            {
+                _portfolioRepository.Update(portfolio);
+                return Ok("Portfólio atualizado com sucesso");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao tentar atualizar portfólio");
+                return StatusCode(500, "Erro interno ao tentar atualizar portfólio");
+            }
+        }
+
+        [HttpDelete("delete-portfolio/{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                _portfolioRepository.Delete(id);
+                return Ok("Portfólio excluído com sucesso");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao tentar excluir portfólio");
+                return StatusCode(500, "Erro interno ao tentar excluir portfólio");
+            }
+        }
+
     }
 }

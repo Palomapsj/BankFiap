@@ -16,5 +16,36 @@ namespace Bank.BankFiap.Bank.Controllers
             _dividendInterestRepository = dividendInterestRepository;
             _logger = logger;
         }
+
+        [HttpPost("add-dividend-interest")]
+        public IActionResult Add([FromBody] DividendInterest dividendInterest)
+        {
+            try
+            {
+                _dividendInterestRepository.Add(dividendInterest);
+                return Ok("Dividendo ou juro adicionado com sucesso");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao tentar adicionar dividendo ou juro");
+                return StatusCode(500, "Erro interno ao tentar adicionar dividendo ou juro");
+            }
+        }
+
+        [HttpGet("get-dividends-interests-by-portfolio/{portfolioId}")]
+        public IActionResult GetDividendsInterestsByPortfolioId(int portfolioId)
+        {
+            try
+            {
+                var dividendsInterests = _dividendInterestRepository.GetDividendsInterestsByPortfolioId(portfolioId);
+                return Ok(dividendsInterests);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao tentar obter dividendos e juros do portfólio");
+                return StatusCode(500, "Erro interno ao tentar obter dividendos e juros do portfólio");
+            }
+        }
+
     }
 }
