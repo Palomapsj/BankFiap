@@ -1,4 +1,5 @@
 ﻿using Bank.BankFiap.Bank.Entity;
+
 namespace Bank.BankFiap.Bank.DTO
 {
     public class UserDTO : BaseEntity

@@ -9,21 +9,21 @@ namespace Bank.BankFiap.Bank.Controllers
 {
     public class PortfoliosController : ControllerBase
     {
-        private IPortifolio _portifolioRepository;
+        private IPortfolio _portfolioRepository;
         private readonly ILogger<PortfoliosController> _logger;
-        public PortfoliosController(IPortifolio portifolioRepository, ILogger<PortfoliosController> logger)
+        public PortfoliosController(IPortfolio portifolioRepository, ILogger<PortfoliosController> logger)
         {
-            _portifolioRepository = portifolioRepository;
+            _portfolioRepository = portifolioRepository;
             _logger = logger;
         }
 
         [HttpPost("Register-Portifolio")]
-        public IActionResult AddPortifolio(PortfolioDTO portfolioDTO)
+        public IActionResult AddPortifolio(PortfolioDTO portifolioDTO)
         {
             try
             {
                 _logger.LogInformation("Tentando cadastrar usuario");
-                _portifolioRepository.Add(new Portfolio(portfolioDTO));
+                _portfolioRepository.Add(new Portfolio(portifolioDTO));
                 _logger.LogInformation("Usuario cadastrado com sucesso");
 
                 return Ok("Usuario cadastrado com sucesso");
@@ -35,36 +35,36 @@ namespace Bank.BankFiap.Bank.Controllers
             }
         }
 
-        [HttpGet("Get-user-byId/{id}")]
-        public IActionResult GetUserById(int id)
+        [HttpGet("Get-Portifolio-byId/{id}")]
+        public IActionResult GetPortifolioById(int id)
         {
             try
             {
-                _logger.LogInformation("Buscando usuario");
-                return Ok(_portifolioRepository.GetById(id));
+                _logger.LogInformation("Buscando portfolios");
+                return Ok(_portfolioRepository.GetById(id));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao tentar obter usuário no banco de dados");
-                return StatusCode(500, "Erro interno ao tentar obter usuário");
+                _logger.LogError(ex, "Erro ao tentar obter portfolios no banco de dados");
+                return StatusCode(500, "Erro interno ao tentar obter portfolios");
             }
         }
 
-        [HttpPost("UpdateUser")]
-        public IActionResult UpdateUser(PortfolioDTO userDTO)
+        [HttpPost("UpdatePortfolios")]
+        public IActionResult UpdatePortfolio(PortfolioDTO userDTO)
         {
             try
             {
-                _logger.LogInformation("Tentando cadastrar usuario");
-                _portifolioRepository.Update(new Portfolio(userDTO));
+                _logger.LogInformation("Tentando cadastrar um portfolios");
+                _portfolioRepository.Update(new Portfolio(userDTO));
                 _logger.LogInformation("Usuario cadastrado com sucesso");
 
-                return Ok("Usuario cadastrado com sucesso");
+                return Ok("Portfolios cadastrado com sucesso");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao tentar cadastrar usuário no banco de dados");
-                return StatusCode(500, "Erro interno ao tentar cadastrar usuário");
+                _logger.LogError(ex, "Erro ao tentar cadastrar portfolios no banco de dados");
+                return StatusCode(500, "Erro interno ao tentar cadastrar portfolios");
             }
         }
     }

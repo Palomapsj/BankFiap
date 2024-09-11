@@ -7,49 +7,49 @@ using System.Text.Json;
 
 namespace Bank.BankFiap.Bank.Repository
 {
-    public class DividendInterestRepository : DapperRepository<DividendInterest>, IDividendInterest
+    public class PortfolioRepository : DapperRepository<Portfolio>, IPortfolio
     {
         private readonly ConnectionFactory _factory;
 
-        public DividendInterestRepository(IConfiguration configuration) : base(configuration)
+        public PortfolioRepository(IConfiguration configuration) : base(configuration)
         {
             _factory = new ConnectionFactory() { HostName = "localhost" };
         }
 
-        public override void Add(DividendInterest entidade)
+        public override void Add(Portfolio entidade)
         {
-            PublishToQueue("queue-dividendinterest-save", entidade);
+            PublishToQueue("queue-portfolio-save", entidade);
         }
 
-        public override void Update(DividendInterest entidade)
+        public override void Update(Portfolio entidade)
         {
-            PublishToQueue("queue-dividendinterest-update", entidade);
+            PublishToQueue("queue-portfolio-update", entidade);
 
         }
 
-        public override DividendInterest GetById(int id)
+        public override Portfolio GetById(int id)
         {
             using var dbConnection = new SqlConnection(ConnectionString);
-            var query = "SELECT * FROM DividendsInterests where id = @Id";
-            return dbConnection.QueryFirstOrDefault<DividendInterest>(query, new { Id = id });
+            var query = "SELECT * FROM Portfolios where id = @Id";
+            return dbConnection.QueryFirstOrDefault<Portfolio>(query, new { Id = id });
         }
 
         public override void Delete(int id)
         {
-            DividendInterest entidade = new DividendInterest();
+            Portfolio entidade = new Portfolio();
             entidade.Id = id;
 
-            PublishToQueue("queue-dividendinterest-delete", entidade);
+            PublishToQueue("queue-portfolio-delete", entidade);
         }
 
-        public override IList<DividendInterest> GetAll()
+        public override IList<Portfolio> GetAll()
         {
             using var dbConnection = new SqlConnection(ConnectionString);
-            var query = "SELECT * FROM DividendsInterests";
-            return dbConnection.Query<DividendInterest>(query).ToList();
+            var query = "SELECT * FROM Portfolios";
+            return dbConnection.Query<Portfolio>(query).ToList();
         }
 
-        private void PublishToQueue(string queueName, DividendInterest entidade)
+        private void PublishToQueue(string queueName, Portfolio entidade)
         {
             using (var connection = _factory.CreateConnection())
             using (var channel = connection.CreateModel())

@@ -2,7 +2,7 @@
 using Bank.BankFiap.Bank.Interface;
 namespace Bank.BankFiap.Bank.Repository
 {
-    public abstract class DapperRepository<T> : IRepostiry<T> where T : BaseEntity
+    public abstract class DapperRepository<T> : IRepository<T> where T : BaseEntity
     {
 
         private readonly string _connectionString;

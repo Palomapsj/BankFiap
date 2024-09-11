@@ -17,5 +17,9 @@ namespace Bank.BankFiap.Bank.Entity
             Email = userDto.Email;
             PasswordHash = userDto.PasswordHash;
         }
+
+        public User()
+        {
+        }
     }
 }

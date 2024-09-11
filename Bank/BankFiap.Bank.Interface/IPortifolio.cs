@@ -2,7 +2,7 @@
 
 namespace Bank.BankFiap.Bank.Interface
 {
-    public interface IPortifolio : IRepository<Portfolio>
+    public interface IPortfolio : IRepository<Portfolio>
     {
     }
 }

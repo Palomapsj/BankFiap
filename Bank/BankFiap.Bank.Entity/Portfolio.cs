@@ -17,6 +17,10 @@ namespace Bank.BankFiap.Bank.Entity
             Name = portfolioDTO.Name;
             UserId = portfolioDTO.UserId;
         }
+
+        public Portfolio()
+        {
+        }
     }
 
 
