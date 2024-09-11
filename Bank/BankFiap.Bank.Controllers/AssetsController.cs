@@ -18,11 +18,11 @@ namespace Bank.BankFiap.Bank.Controllers
         }
 
         [HttpPost("add-asset")]
-        public IActionResult Add([FromBody] Asset asset)
+        public IActionResult Add([FromBody] AssetDTO asset)
         {
             try
             {
-                _assetRepository.Add(asset);
+                _assetRepository.Add(new Asset(asset));
                 return Ok("Ativo adicionado com sucesso");
             }
             catch (Exception ex)
@@ -65,11 +65,11 @@ namespace Bank.BankFiap.Bank.Controllers
         }
 
         [HttpPut("update-asset")]
-        public IActionResult Update([FromBody] Asset asset)
+        public IActionResult Update([FromBody] AssetDTO asset)
         {
             try
             {
-                _assetRepository.Update(asset);
+                _assetRepository.Update(new Asset(asset));
                 return Ok("Ativo atualizado com sucesso");
             }
             catch (Exception ex)

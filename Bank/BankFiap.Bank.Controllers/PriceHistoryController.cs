@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Bank.BankFiap.Bank.Interface;
 using Bank.BankFiap.Bank.Entity;
+using Bank.BankFiap.Bank.DTO;
 
 namespace Bank.BankFiap.Bank.Controllers
 {
@@ -15,11 +16,11 @@ namespace Bank.BankFiap.Bank.Controllers
         }
 
         [HttpPost("add-price-history")]
-        public IActionResult Add([FromBody] PriceHistory priceHistory)
+        public IActionResult Add([FromBody] PriceHistoryDTO priceHistory)
         {
             try
             {
-                _priceHistoryRepository.Add(priceHistory);
+                _priceHistoryRepository.Add(new PriceHistory(priceHistory));
                 return Ok("Histórico de preços adicionado com sucesso");
             }
             catch (Exception ex)

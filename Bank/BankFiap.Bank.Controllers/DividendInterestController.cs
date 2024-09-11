@@ -18,11 +18,11 @@ namespace Bank.BankFiap.Bank.Controllers
         }
 
         [HttpPost("add-dividend-interest")]
-        public IActionResult Add([FromBody] DividendInterest dividendInterest)
+        public IActionResult Add([FromBody] DividendInterestDTO dividendInterest)
         {
             try
             {
-                _dividendInterestRepository.Add(dividendInterest);
+                _dividendInterestRepository.Add(new DividendInterest(dividendInterest));
                 return Ok("Dividendo ou juro adicionado com sucesso");
             }
             catch (Exception ex)

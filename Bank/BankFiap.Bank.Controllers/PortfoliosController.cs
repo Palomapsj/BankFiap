@@ -18,11 +18,11 @@ namespace Bank.BankFiap.Bank.Controllers
         }
 
         [HttpPost("add-portfolio")]
-        public IActionResult Add([FromBody] Portfolio portfolio)
+        public IActionResult Add([FromBody] PortfolioDTO portfolio)
         {
             try
             {
-                _portfolioRepository.Add(portfolio);
+                _portfolioRepository.Add(new Portfolio(portfolio));
                 return Ok("Portfólio adicionado com sucesso");
             }
             catch (Exception ex)
@@ -65,11 +65,11 @@ namespace Bank.BankFiap.Bank.Controllers
         }
 
         [HttpPut("update-portfolio")]
-        public IActionResult Update([FromBody] Portfolio portfolio)
+        public IActionResult Update([FromBody] PortfolioDTO portfolio)
         {
             try
             {
-                _portfolioRepository.Update(portfolio);
+                _portfolioRepository.Update(new Portfolio(portfolio));
                 return Ok("Portfólio atualizado com sucesso");
             }
             catch (Exception ex)

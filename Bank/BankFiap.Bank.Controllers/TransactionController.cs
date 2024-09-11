@@ -18,11 +18,11 @@ namespace Bank.BankFiap.Bank.Controllers
         }
 
         [HttpPost("add-transaction")]
-        public IActionResult Add([FromBody] Transaction transaction)
+        public IActionResult Add([FromBody] TransactionDTO transaction)
         {
             try
             {
-                _transactionRepository.Add(transaction);
+                _transactionRepository.Add(new Transaction(transaction));
                 return Ok("Transação adicionada com sucesso");
             }
             catch (Exception ex)

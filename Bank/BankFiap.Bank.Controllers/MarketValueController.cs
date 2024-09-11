@@ -18,11 +18,11 @@ namespace Bank.BankFiap.Bank.Controllers
         }
 
         [HttpPost("add-market-value")]
-        public IActionResult AddMarketValue([FromBody] MarketValue marketValue)
+        public IActionResult AddMarketValue([FromBody] MarketValueDTO marketValue)
         {
             try
             {
-                _marketValueRepository.Add(marketValue);
+                _marketValueRepository.Add(new MarketValue(marketValue));
                 return Ok("Valor de mercado adicionado com sucesso");
             }
             catch (Exception ex)

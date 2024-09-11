@@ -18,11 +18,11 @@ namespace Bank.BankFiap.Bank.Controllers
         }
 
         [HttpPost("add-user")]
-        public IActionResult Add([FromBody] User user)
+        public IActionResult Add([FromBody] UserDTO user)
         {
             try
             {
-                _usuarioRepository.Add(user);
+                _usuarioRepository.Add(new User(user));
                 return Ok("Usuário adicionado com sucesso");
             }
             catch (Exception ex)
@@ -67,11 +67,11 @@ namespace Bank.BankFiap.Bank.Controllers
         }
 
         [HttpPut("update-user")]
-        public IActionResult Update([FromBody] User user)
+        public IActionResult Update([FromBody] UserDTO user)
         {
             try
             {
-                _usuarioRepository.Update(user);
+                _usuarioRepository.Update(new User(user));
                 return Ok("Usuário atualizado com sucesso");
             }
             catch (Exception ex)

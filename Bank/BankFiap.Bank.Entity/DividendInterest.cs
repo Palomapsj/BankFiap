@@ -1,4 +1,5 @@
-﻿using Bank.BankFiap.Bank.Entity.Enum;
+﻿using Bank.BankFiap.Bank.DTO;
+using Bank.BankFiap.Bank.Entity.Enum;
 
 namespace Bank.BankFiap.Bank.Entity
 {
@@ -11,6 +12,19 @@ namespace Bank.BankFiap.Bank.Entity
         public PaymentType PaymentType { get; set; }  // Dividend or Interest
         public decimal Amount { get; set; }
         public DateTime PaymentDate { get; set; }
+
+        public DividendInterest(DividendInterestDTO dividendInterestDTO)
+        {
+            PortfolioId = dividendInterestDTO.PortfolioId;
+            AssetId = dividendInterestDTO.AssetId;
+            PaymentType = dividendInterestDTO.PaymentType;
+            Amount = dividendInterestDTO.Amount;
+            PaymentDate = dividendInterestDTO.PaymentDate;
+        }
+
+        public DividendInterest()
+        {
+        }
     }
 
 }
